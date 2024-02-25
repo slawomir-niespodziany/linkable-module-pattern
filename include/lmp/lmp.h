@@ -30,7 +30,7 @@ using is_base_of_template = decltype(is_base_of_template_impl<C>(std::declval<T*
 template <typename ModuleInterface>
 class ModuleRegistry {
 public:
-    static_assert(is_base_of_template<AbstractModule, ModuleInterface>::value, "Error.");
+    static_assert(is_base_of_template<AbstractModule, ModuleInterface>::value, "ModuleInterface must inherit after AbstractModule<>.");
 
     using ModuleId = typename ModuleInterface::id_type;
 
@@ -74,8 +74,8 @@ private:
 template <typename ModuleInterface, typename Module>
 class ModuleRegisterer {
 public:
-    static_assert(is_base_of_template<AbstractModule, ModuleInterface>::value, "Error.");
-    static_assert(std::is_base_of<ModuleInterface, Module>::value, "ABC");
+    static_assert(is_base_of_template<AbstractModule, ModuleInterface>::value, "ModuleInterface must inherit after AbstractModule<>.");
+    static_assert(std::is_base_of<ModuleInterface, Module>::value, "Module must inherit after ModuleInterface.");
 
     template <typename... Args>
     ModuleRegisterer(Args... args) {
